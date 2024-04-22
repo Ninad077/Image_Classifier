@@ -1,7 +1,6 @@
 import gradio as gr
 import tensorflow as tf
 import numpy as np
-from PIL import Image
 
 # Load the saved model
 model = tf.keras.models.load_model('mymodel.h5')
@@ -25,12 +24,8 @@ def classify_image(image):
 
     return predicted_class
 
-# Define the Gradio interface
-image_input = gr.Image(type="pil", label="Upload Image")
-label_output = gr.Label()
-
-# Create the Gradio interface
-interface = gr.Interface(fn=classify_image, inputs=image_input, outputs=label_output, title="Image Classifier")
+# Create the Gradio interface directly
+interface = gr.Interface(classify_image, "image", "label", title="Image Classifier")
 
 # Launch the interface
 interface.launch()
